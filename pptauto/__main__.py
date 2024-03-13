@@ -8,7 +8,7 @@ from .utilities import fill_BOM, file_type
 
 # prs = Presentation(parser.input)
 
-prs = Presentation('data/IT-prueva.pptx')
+prs = Presentation('data/IT-prueba.pptx')
 task_structure = [('010', 'tareas previas', 1,4), ('020', 'desmontaje',5,8)]
 
 fill_BOM(prs)
@@ -24,4 +24,4 @@ fill_BOM(prs)
 #     step_paragraphs = get_step_paragraphs(task_dict[key])
 #     number_paragraphs(step_paragraphs)
 
-prs.save(parser.output)
+prs.save('data/test-modulo.pptx')
