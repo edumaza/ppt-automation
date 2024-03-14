@@ -1,4 +1,5 @@
 from pptx.enum.shapes import MSO_SHAPE_TYPE
+from pptx.util import Pt
 import os
 
 def get_balloon_numbers(slide):
@@ -18,9 +19,10 @@ def get_balloon_numbers(slide):
                         if shape.shape_type == MSO_SHAPE_TYPE.TEXT_BOX:
                             numbers.append(shape.text) # text box inside group inside group
                             
-    numbers = [number.strip() for number in numbers].sort()
-    # numbers.sort()
-    return numbers
+    numbers = [int(number.strip()) for number in numbers]
+    numbers.sort()
+    numbers_str = [str(number) for number in numbers]
+    return numbers_str
 
 def write_with_format(cell, text, font_name = 'EADS Sans', font_size = 10):
     """ Writes the string text in the cell using font_name with font_size"""
