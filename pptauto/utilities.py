@@ -1,6 +1,8 @@
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 from pptx.util import Pt
+import pptx
 import os
+import unittest
 
 def get_balloon_numbers(slide):
     """ Returns a list with the numbers inside the balloons in the slide """
@@ -20,7 +22,7 @@ def get_balloon_numbers(slide):
                             numbers.append(shape.text) # text box inside group inside group
                             
     numbers = [int(number.strip()) for number in numbers]
-    numbers.sort()
+    numbers = set(numbers) # removes duplicates and sorts numbers
     numbers_str = [str(number) for number in numbers]
     return numbers_str
 
@@ -97,8 +99,11 @@ def write_task_number_text (prs, task_number, task_text, start, end):
         working_slide.placeholders[10].text = task_number.upper()
         working_slide.placeholders[11].text = task_text.upper()
 
+def get_slides_task(prs):
+    return prs.slide_layouts[4].used_by_slides
+
 def fill_BOM (prs):
-    slides_tasks = prs.slide_layouts[4].used_by_slides
+    slides_tasks = get_slides_task(prs)
     
     # Filling the BOM table in each slide:
 
@@ -112,3 +117,24 @@ def file_type(string):
         return(string)
     else:
         raise FileNotFoundError(string)
+    
+class ModuleTestCase(unittest.TestCase):
+    
+    def setUp(self):
+        self.prs = pptx.Presentation('data/IT-prueba.pptx')
+
+    def test_get_slides_task(self):
+        slides_task = get_slides_task(self.prs)
+        self.assertEqual(len(slides_task), 14)
+
+    def test_get_balloon_numbers(self):
+        slide = self.prs.slides[5]
+        self.assertEqual(get_balloon_numbers(slide), ['1','5','6','7'])
+
+    def test_get_table(self):
+        slide = self.prs.slides[5]
+        self.assertTrue(isinstance(get_table(slide), pptx.table.Table))
+
+if __name__ == '__main__':
+    unittest.main()
+    # python -m pptauto.utilities to run the tests
