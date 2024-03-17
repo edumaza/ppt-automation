@@ -1,14 +1,16 @@
 from pptx import Presentation
 from .utilities import fill_BOM, file_type
-# import argparse
+import argparse
 
-# parser = argparse.ArgumentParser()
-# parser.add_argument('-i', '--input', type= file_type)
-# parser.add_argument('-o', '--output', type= file_type)
+parser = argparse.ArgumentParser()
+parser.add_argument('-i', '--input', type= file_type)
+parser.add_argument('-o', '--output', type= file_type)
+args = parser.parse_args()
 
 # prs = Presentation(parser.input)
 
-prs = Presentation('data/IT-prueba.pptx')
+prs = Presentation(args.input)
+print(f'Successful read of {args.input}')
 task_structure = [('010', 'tareas previas', 1,4), ('020', 'desmontaje',5,8)]
 
 fill_BOM(prs)
@@ -24,4 +26,5 @@ fill_BOM(prs)
 #     step_paragraphs = get_step_paragraphs(task_dict[key])
 #     number_paragraphs(step_paragraphs)
 
-prs.save('data/test-modulo.pptx')
+prs.save(args.output)
+print(f'Presentation saved as {args.output}')

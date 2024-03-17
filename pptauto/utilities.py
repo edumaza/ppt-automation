@@ -26,7 +26,7 @@ def get_balloon_numbers(slide):
     numbers_str = [str(number) for number in numbers]
     return numbers_str
 
-def write_with_format(cell, text, font_name = 'EADS Sans', font_size = 10):
+def write_with_format(cell, text, font_name = 'Arial', font_size = 10):
     """ Writes the string text in the cell using font_name with font_size"""
     text_frame = cell.text_frame
     text_frame.clear()  # not necessary for newly-created shape
@@ -113,6 +113,7 @@ def fill_BOM (prs):
         write_numbers_in_table(table,numbers) 
 
 def file_type(string):
+    """Returns True if the string passed is a path to a file. It is an auxiliary function to check that input and output flags are paths to a file"""
     if os.path.isfile(string):
         return(string)
     else:
