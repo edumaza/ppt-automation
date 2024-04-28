@@ -5,6 +5,6 @@ Writing this package has taught me how to:
 - organize code and write a setup.py for installing the package using pip
 - use argparse for parsing command line arguments
 - write simple tests using unittest
-- write a requirements file using pipreqs
+- write a requirements file using pipreqs [instructions](https://github.com/bndr/pipreqs)
 - use git begginer commands
 

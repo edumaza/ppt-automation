@@ -1,10 +1,11 @@
 from pptx import Presentation
 from .utilities import fill_BOM, file_type
 import argparse
+import pathlib
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type= file_type)
-parser.add_argument('-o', '--output', type= file_type)
+parser.add_argument('-o', '--output', type= pathlib.Path)
 args = parser.parse_args()
 
 # prs = Presentation(parser.input)
